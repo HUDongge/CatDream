@@ -43,7 +43,7 @@ using UnityEngine.UI;
                 isGrounded = false;
             }
         
-            CheckGroundPosition();
+           // CheckGroundPosition();
 
     }
 
@@ -72,7 +72,7 @@ using UnityEngine.UI;
             }
         }
 
-    private void CheckGroundPosition()
+  /*  private void CheckGroundPosition()
     {
         // 从玩家发射射线向下检测地面  
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, groundLayer);
@@ -80,14 +80,14 @@ using UnityEngine.UI;
         {
             lastCollisionPoint = hit.point; // 记录最近的地面位置  
         }
-    }
+    }*/
 
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.collider.tag == "Ground")
             {
                 isGrounded = true;
-             //   lastCollisionPoint = other.contacts[0].point;  // 记录第一个接触点的位置          
+                lastCollisionPoint = other.contacts[0].point;  // 记录第一个接触点的位置          
             }
             if (other.collider.tag == "Water")
             {
