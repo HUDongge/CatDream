@@ -25,8 +25,8 @@ Transform:
   m_GameObject: {fileID: 4647905061770390939}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 0.897, z: -0.028715791}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -8, y: 0.34, z: -0.028716}
+  m_LocalScale: {x: 0.4626, y: 0.4626, z: 0.4626}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1779936924238689516}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3918079644677476434}
   - component: {fileID: 747290450000528199}
   - component: {fileID: 3512999403318712850}
-  - component: {fileID: 5124760686298686958}
+  - component: {fileID: 9161182211977042539}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Player
@@ -127,7 +127,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1498090977, guid: 09f6461f48137d84fba0f91537644de6, type: 3}
+  m_Sprite: {fileID: 1385463396, guid: 09f6461f48137d84fba0f91537644de6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,8 +165,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &5124760686298686958
-CapsuleCollider2D:
+--- !u!61 &9161182211977042539
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -197,6 +197,16 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0000009536743, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.96, y: 1.33}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.96, y: 1.33}
+  m_EdgeRadius: 0
