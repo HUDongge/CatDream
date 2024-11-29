@@ -28,6 +28,7 @@ public class ResetPlayer : MonoBehaviour
     IEnumerator Respawn(Vector3 playerPosition)
     {
         yield return new WaitForSeconds(respawnDelay);
+        
         GameObject newPlayer=Instantiate(playerPrefab, playerPosition, Quaternion.identity);
       
     }

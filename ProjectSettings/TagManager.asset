@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Water
   - Gemstone
+  - RightBlock
+  - LeftBlock
+  - DownBlock
   layers:
   - Default
   - TransparentFX

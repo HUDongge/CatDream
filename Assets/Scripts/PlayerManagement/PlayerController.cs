@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -13,7 +14,7 @@ using UnityEngine.UI;
         public float movement;
 
         private bool isGrounded=true;
-        private bool facingLeft = true;
+        private bool facingLeft = false;
         private Rigidbody2D rb;
         private Animator animator;
         public float deathDelay = 3f;     // 死亡后的延迟时间
@@ -22,12 +23,13 @@ using UnityEngine.UI;
         public static event Action<Vector3> OnPlayerDeath;  // 事件声明
         public LayerMask groundLayer;
 
+       
 
-
-    void Start()
+        void Start()
         {
             rb = GetComponent<Rigidbody2D>();
-           lastCollisionPoint = transform.position; 
+           lastCollisionPoint = transform.position;
+          
         //    animator = GetComponent<Animator>();
         }
 
@@ -44,9 +46,7 @@ using UnityEngine.UI;
                 isGrounded = false;
             }
         
-           // CheckGroundPosition();
-
-    }
+        }
 
        
 
@@ -60,12 +60,12 @@ using UnityEngine.UI;
 
         void filp()
         {
-            if(movement>0f && facingLeft)
+            if(movement<0f && facingLeft)
             {
                 transform.eulerAngles = new Vector3(0f,-180f,0f);
                 facingLeft = false;
             }
-            else if(movement<0f && facingLeft == false)
+            else if(movement>0f && facingLeft==false)
             {
                 transform.eulerAngles = new Vector3(0f,0f,0f);
                 facingLeft = true;
@@ -73,15 +73,7 @@ using UnityEngine.UI;
             }
         }
 
-  /*  private void CheckGroundPosition()
-    {
-        // 从玩家发射射线向下检测地面  
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, groundLayer);
-        if (hit.collider != null)
-        {
-            lastCollisionPoint = hit.point; // 记录最近的地面位置  
-        }
-    }*/
+  
 
         private void OnCollisionEnter2D(Collision2D other)
         {
@@ -90,24 +82,38 @@ using UnityEngine.UI;
             {
                 Die();
             }
-        }
-
-        private void OnCollisionStay2D(Collision2D other)
-        {
-        if (other.collider.tag == "Ground")
-        {
+            if (other.collider.tag == "Ground")
+            {
             isGrounded = true;
-          //  lastCollisionPoint = other.contacts[0].point;  // 记录第一个接触点的位置
-                                                                                                      // 
+            //  lastCollisionPoint = other.contacts[0].point;  // 记录第一个接触点的位置
+
+            }
         }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+       
+        int currentSceneIndex = SlideTest.sceneToPos[SceneManager.GetActiveScene().buildIndex];
+        if (other.CompareTag("RightBlock"))
+        {
+            ScenesManager.Instance.SwitchScene(currentSceneIndex, "right");
+            Debug.Log($"currentSceneIndex:{currentSceneIndex}");
+        }
+        else if (other.CompareTag("LeftBlock"))
+        {
+            ScenesManager.Instance.SwitchScene(currentSceneIndex, "left");
+        }
+        else if (other.CompareTag("DownBlock"))
+        {
+            ScenesManager.Instance.SwitchScene(currentSceneIndex, "down");
+        }
+
     }
-
-
 
         void Die()
         {
             OnPlayerDeath.Invoke(lastCollisionPoint);  // 传递玩家死前位置
-            Destroy(this.gameObject);
+            Destroy(gameObject.transform.parent.gameObject);
         }
 
     }
