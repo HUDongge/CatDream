@@ -27,6 +27,7 @@ using UnityEngine.UI;
     void Start()
         {
             rb = GetComponent<Rigidbody2D>();
+           lastCollisionPoint = transform.position; 
         //    animator = GetComponent<Animator>();
         }
 
@@ -84,18 +85,25 @@ using UnityEngine.UI;
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.collider.tag == "Ground")
-            {
-                isGrounded = true;
-                lastCollisionPoint = other.contacts[0].point;  // 记录第一个接触点的位置          
-            }
+            
             if (other.collider.tag == "Water")
             {
                 Die();
             }
         }
 
-   
+        private void OnCollisionStay2D(Collision2D other)
+        {
+        if (other.collider.tag == "Ground")
+        {
+            isGrounded = true;
+          //  lastCollisionPoint = other.contacts[0].point;  // 记录第一个接触点的位置
+                                                                                                      // 
+        }
+    }
+
+
+
         void Die()
         {
             OnPlayerDeath.Invoke(lastCollisionPoint);  // 传递玩家死前位置
