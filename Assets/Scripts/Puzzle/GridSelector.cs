@@ -61,7 +61,7 @@ public class GridSelector : MonoBehaviour
         }
 
         // Press R to reset the grid to its original state
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             ResetGrid();
         }
