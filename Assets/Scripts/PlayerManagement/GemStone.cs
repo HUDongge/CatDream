@@ -9,7 +9,9 @@ public class GemStone : MonoBehaviour
        
         if (other.CompareTag("Player"))
         {
-            ScenesManager.Instance.currentScore++;           
+            ScenesManager.Instance.currentScore++;
+            Debug.Log(ScenesManager.Instance.currentScore);
+
             Destroy(this.gameObject);
         }
 
