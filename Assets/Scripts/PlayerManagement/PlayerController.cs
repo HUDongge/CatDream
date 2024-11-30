@@ -44,11 +44,7 @@ using UnityEngine.UI;
                  Jump();
                  anim.SetBool("jump_up", true);
                  isGrounded = false;
-            }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                SceneManager.LoadSceneAsync("Test");
-            }
+            }            
 
 
         }

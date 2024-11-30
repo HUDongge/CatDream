@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+//这个是测试得！
 public class UIManagement : MonoBehaviour
 {
 
