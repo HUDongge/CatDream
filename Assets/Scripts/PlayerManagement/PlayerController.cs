@@ -16,7 +16,7 @@ using UnityEngine.UI;
         private bool isGrounded=true;
         private bool facingLeft = false;
         private Rigidbody2D rb;
-        public float deathDelay = 3f;     // 死亡后的延迟时间
+        public float deathDelay = 1f;     // 死亡后的延迟时间
         private Vector3 lastCollisionPoint;  // 用于保存玩家死前接触的碰撞体位置
 
         public static event Action<Vector3> OnPlayerDeath;  // 事件声明
