@@ -11,13 +11,18 @@ public class GridSelector : MonoBehaviour
     private int columns = 3;           // Number of columns in the grid
     private bool isObjectSelected = false; // Whether an object is currently selected
 
+    private Transform[] originalOrder; // Stores the original order of the child objects
+
     private void Start()
     {
         // Initialize the grid items from the children of the gridParent
         gridItems = new RectTransform[gridParent.childCount];
+        originalOrder = new Transform[gridParent.childCount];
+
         for (int i = 0; i < gridParent.childCount; i++)
         {
             gridItems[i] = gridParent.GetChild(i).GetComponent<RectTransform>();
+            originalOrder[i] = gridParent.GetChild(i); // Save the original order
         }
 
         // Start by selecting the first object
@@ -53,6 +58,12 @@ public class GridSelector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ToggleObjectSelection();
+        }
+
+        // Press R to reset the grid to its original state
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ResetGrid();
         }
     }
 
@@ -119,9 +130,28 @@ public class GridSelector : MonoBehaviour
             gridItems[emptyIndex] = temp;
 
             // Deselect the object
-            //isObjectSelected = false;
             ToggleObjectSelection();
             AttachFrameToSelectedObject();
         }
+    }
+
+    public void ResetGrid()
+    {
+        // Clear the grid parent of all children
+        for (int i = gridParent.childCount - 1; i >= 0; i--)
+        {
+            gridParent.GetChild(i).SetParent(null, false);
+        }
+
+        // Reattach the children in their original order
+        foreach (Transform original in originalOrder)
+        {
+            original.SetParent(gridParent, false);
+        }
+
+        // Ensure the frame is reattached to the first object
+        selectedIndex = 0;
+        isObjectSelected = false;
+        AttachFrameToSelectedObject();
     }
 }
