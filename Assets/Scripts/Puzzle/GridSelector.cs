@@ -28,6 +28,8 @@ public class GridSelector : MonoBehaviour
         // Start by selecting the first object
         selectedIndex = 0;
         AttachFrameToSelectedObject();
+
+        PrintGrid();
     }
 
     private void Update()
@@ -132,6 +134,7 @@ public class GridSelector : MonoBehaviour
             // Deselect the object
             ToggleObjectSelection();
             AttachFrameToSelectedObject();
+            PrintGrid();
         }
     }
 
@@ -154,4 +157,38 @@ public class GridSelector : MonoBehaviour
         isObjectSelected = false;
         AttachFrameToSelectedObject();
     }
+
+    public int GetIndexByName(string name)
+    {
+        for (int i = 0; i < gridItems.Length; i++)
+        {
+            if (gridItems[i] != null && gridItems[i].name == name)
+            {
+                return i;
+            }
+        }
+        return -1; // Return -1 if the item is not found
+    }
+
+    public string GetNameByIndex(int index)
+    {
+        if (index >= 0 && index < gridItems.Length)
+        {
+            return gridItems[index] != null ? gridItems[index].name : "Empty";
+        }
+        return "Invalid Index"; // Return an error message for invalid indices
+    }
+
+
+    public void PrintGrid()
+    {
+        for (int i = 0; i < gridItems.Length; i++)
+        {
+            // Ensure the grid item exists before accessing its name
+            string itemName = gridItems[i] != null ? gridItems[i].name : "Empty";
+            Debug.Log($"Index: {i}, Item Name: {itemName}");
+        }
+    }
+
+
 }
