@@ -34,6 +34,11 @@ public class ScenesManager : MonoBehaviour
 
     public string Direction; //来的方向
 
+    public int currentScore;  //本关卡当前得分
+
+
+  //  public List<Vector2> startPoint; 存储不同场景进入时动态生成玩家的位置
+
     private void Awake()
     {
         // 确保只有一个实例存在
@@ -99,5 +104,34 @@ public class ScenesManager : MonoBehaviour
 
 
     }
-   
+
+  
+    //点击重置按钮，将分数清空，玩家重新生成到出发点的场景内，九宫格位置恢复原始的位置
+    private void ResetAll()
+    {
+        currentScore = 0;
+        //玩家重生在出发点：
+
+        //九宫格恢复原始：
+    }
+
+    private void Update()
+    {
+        if(currentScore==3)
+        {
+            SceneManager.LoadSceneAsync("Test"); //得三分切换到Leve2_1 //自动销毁自身
+            Destroy(gameObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SceneManager.LoadSceneAsync("Test");  //按F切换到Level1的九宫格场景
+        }
+    }
+
 }
