@@ -10,6 +10,7 @@ public class SpawnPlayer : MonoBehaviour
     void Start()
     {
        string direction = ScenesManager.Instance.Direction;
+       // Debug.Log(direction);
         if(direction=="right")
         {
             rightPlayer.SetActive(true);

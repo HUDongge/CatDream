@@ -28,9 +28,10 @@ using UnityEngine.UI;
         {
             rb = GetComponent<Rigidbody2D>();
            lastCollisionPoint = transform.position;
-          
+           // Debug.Log(lastCollisionPoint);
             anim = GetComponent<Animator>();
-        }
+       
+    }
 
         void Update()
         {
@@ -44,7 +45,11 @@ using UnityEngine.UI;
                  Jump();
                  anim.SetBool("jump_up", true);
                  isGrounded = false;
-            }            
+            }   
+            if(isGrounded)
+            {
+                anim.SetBool("jump_up", false);
+            }
 
 
         }
@@ -84,8 +89,7 @@ using UnityEngine.UI;
             }
             if (other.collider.tag == "Ground")
             {
-               isGrounded = true;
-               anim.SetBool("jump_up",false);
+               isGrounded = true;            
             //  lastCollisionPoint = other.contacts[0].point;  // 记录第一个接触点的位置
 
             }
