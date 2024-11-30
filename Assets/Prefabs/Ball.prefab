@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2124171424971677577}
   - component: {fileID: 8845892853526140723}
   m_Layer: 0
-  m_Name: Ball_Level1
+  m_Name: Ball
   m_TagString: Gemstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

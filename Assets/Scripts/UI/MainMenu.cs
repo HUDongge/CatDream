@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         // 加载第一关的九宫格
-        SceneManager.LoadSceneAsync("Level1_1");
+        SceneManager.LoadSceneAsync("Level1");
     }
 
     

@@ -22,7 +22,7 @@ using UnityEngine.UI;
         public static event Action<Vector3> OnPlayerDeath;  // 事件声明
         public LayerMask groundLayer;
         private Animator anim;
-
+       
 
         void Start()
         {
@@ -30,7 +30,7 @@ using UnityEngine.UI;
            lastCollisionPoint = transform.position;
            // Debug.Log(lastCollisionPoint);
             anim = GetComponent<Animator>();
-       
+            ScenesManager.Instance.playerInScene = SceneManager.GetActiveScene().name;
     }
 
         void Update()
@@ -106,9 +106,10 @@ using UnityEngine.UI;
 
     void OnTriggerEnter2D(Collider2D other)
     {
-       
-        int currentSceneIndex = SlideTest.sceneToPos[SceneManager.GetActiveScene().buildIndex];
-        if (other.CompareTag("RightBlock"))
+        Debug.Log(SceneManager.GetActiveScene().name);
+        int currentSceneIndex = GetData.Instance.GetIndexByName(SceneManager.GetActiveScene().name);
+          
+        if (other.CompareTag("RightBlock"))   //从右边走的话，看下一个场景的左边是否有通道
         {
             ScenesManager.Instance.SwitchScene(currentSceneIndex, "right");
             Debug.Log($"currentSceneIndex:{currentSceneIndex}");

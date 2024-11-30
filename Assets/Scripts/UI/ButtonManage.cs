@@ -12,7 +12,6 @@ public class ButtonManage : MonoBehaviour
 
     void Start()
     {
-
         returnSlideButton.onClick.AddListener(OnSlideClick);  // 添加点击事件监听
         resetButton.onClick.AddListener(OnResetClick);
         returnInfoButton.onClick.AddListener(OnInfoClick);
@@ -20,12 +19,15 @@ public class ButtonManage : MonoBehaviour
 
     void OnSlideClick()
     {
-        SceneManager.LoadSceneAsync("Test");  //返回九宫格Level1
+
+        SceneManager.LoadSceneAsync("Level"+ScenesManager.Instance.currentLevelIndex);  //返回九宫格Level1
     }
     
     void OnResetClick()
     {
-        ScenesManager.Instance.currentScore = 0;
+        ScenesManager.Instance.ResetAll();
+        //GridSelector.Instance.ResetGrid(); //格子清空
+        SceneManager.LoadSceneAsync("Level" + ScenesManager.Instance.currentLevelIndex); //返回九宫格
         Debug.Log(ScenesManager.Instance.currentScore);
     }
 
