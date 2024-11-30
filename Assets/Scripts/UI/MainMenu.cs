@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public string StartSceneName;
     public void StartGame()
     {
         // 加载第一关的九宫格
-        SceneManager.LoadSceneAsync("Level1");
+       SceneManager.LoadSceneAsync(StartSceneName);
     }
 
     
