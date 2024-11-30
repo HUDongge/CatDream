@@ -2,32 +2,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ScenesManager : MonoBehaviour
+public class ScenesManager : SingletonMono<ScenesManager>
 {
-    // 单例实例
-    private static ScenesManager instance;
-
-    // 获取单例实例
-    public static ScenesManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                // 尝试查找现有的实例
-                instance = FindObjectOfType<ScenesManager>();
-
-                // 如果还没有实例，创建一个新的实例
-                if (instance == null)
-                {
-                    GameObject singletonObject = new GameObject(typeof(ScenesManager).Name);
-                    instance = singletonObject.AddComponent<ScenesManager>();
-                    DontDestroyOnLoad(singletonObject);  // 确保在场景切换时不会销毁
-                }
-            }
-            return instance;
-        }
-    }
+    
 
     // 存储每个场景的入口状态
     private Dictionary<string, SceneEntrance> sceneEntrances;
@@ -36,34 +13,25 @@ public class ScenesManager : MonoBehaviour
 
     public int currentScore;  //本关卡当前得分
 
+    public int currentLevelIndex;    //看是第几关
+    public string playerInScene;    //当前玩家所在第几关
 
-  //  public List<Vector2> startPoint; 存储不同场景进入时动态生成玩家的位置
+    public LevelOneEntrance levelOne;
+    public LevelTwoEntrance levelTwo;
+    public LevelThreeEntrance levelThree;
+
+    //  public List<Vector2> startPoint; 存储不同场景进入时动态生成玩家的位置
 
     private void Awake()
     {
-        // 确保只有一个实例存在
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);  // 如果已经有实例了，就销毁当前对象
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);  // 保持场景管理器在切换场景时不被销毁
-        }
+        base.Awake();
+        currentLevelIndex = 1;  //从第一关开始
+        levelOne = new LevelOneEntrance();
+        levelTwo = new LevelTwoEntrance();
+        levelThree = new LevelThreeEntrance();
 
-        // 初始化场景入口状态：上下左右
-        sceneEntrances = new Dictionary<string, SceneEntrance>
-        {
-            { "Level1_1", new SceneEntrance(false, false, false, true) }, 
-            { "Level1_2", new SceneEntrance(false, false, true, true) },
-            { "Level1_3", new SceneEntrance(false, true, true, true) },
-            { "Level1_4", new SceneEntrance(false, true, false, false) },
-            { "Level1_5", new SceneEntrance(false, false, true, false) },
-            { "Level1_6", new SceneEntrance(false, false, false, true) },
-            { "Level1_7", new SceneEntrance(false, true, false, false) },
-            { "Level1_8", new SceneEntrance(false, false, false, false) }
-        };
+        sceneEntrances = levelOne.sceneEntrances;
+        playerInScene = "Level1_0";
     }
 
     // 获取当前场景的入口状态
@@ -80,25 +48,56 @@ public class ScenesManager : MonoBehaviour
         }
     }
 
-    // 切换场景的逻辑
-    public void SwitchScene(int currentSceneIndex,string direction )
-    {
-        int currentPos = SlideTest.sceneToPos[currentSceneIndex];//查找当前玩家所在场景的在九宫格里的位置
+    // 切换场景的逻辑SwitchScene(玩家所在场景九宫格位置，来的方向)
+    public void SwitchScene(int currentPos, string direction )
+    {     
         if(direction=="right")
         {
             Debug.Log($"direction:{direction}");
 
             Direction = "right";
-         
-            if ((currentPos + 1)% 3 == 0)  //在九宫格最右边了，不能再往右走
+
+            string nextScene = GetData.Instance.GetNameByIndex(currentPos + 1);
+
+            if (((currentPos + 1)% 3 == 0)|| nextScene==null)  //在九宫格最右边了，不能再往右走
             {
                 return;
             }
-            else if (sceneEntrances[SlideTest.PosToScene[currentPos+1]].canPassLeft)  //否则向右走了一格，找到该格子对应的场景
+            else if (sceneEntrances[nextScene].canPassLeft)  //否则向右走了一格，找到该格子对应的场景
             {
-                SceneManager.LoadScene(SlideTest.PosToScene[currentPos + 1]);
-
+                //  GridSelector.Instance.GetNameByIndex();
+                SceneManager.LoadSceneAsync(nextScene);           
             }    
+        }
+        else if(direction=="left")
+        {
+            Direction = "left";
+
+            string nextScene = GetData.Instance.GetNameByIndex(currentPos - 1);
+
+            if ((currentPos % 3 == 0)|| nextScene == null)  //当前场景在九宫格的最左边，不能继续往左走
+            {
+                return;
+            }
+            else if(sceneEntrances[nextScene].canPassRight)
+            {
+                SceneManager.LoadSceneAsync(nextScene);
+            }
+        }
+        else if(direction=="down")
+        {
+            Direction = "down";
+
+            string nextScene = GetData.Instance.GetNameByIndex(currentPos + 3);
+
+            if (nextScene==null||currentPos == 6|| currentPos == 7|| currentPos == 8)
+            {
+                return;
+            }
+            else if(sceneEntrances[nextScene].canPassUp)
+            {
+                SceneManager.LoadSceneAsync(nextScene);
+            }
         }
        
 
@@ -106,21 +105,47 @@ public class ScenesManager : MonoBehaviour
     }
 
   
-    //点击重置按钮，将分数清空，玩家重新生成到出发点的场景内，九宫格位置恢复原始的位置
-    private void ResetAll()
+    
+    public void ResetAll()
     {
         currentScore = 0;
+        Direction = "";
+        playerInScene = "Level" + currentLevelIndex + "_" + 1;
+
         //玩家重生在出发点：
 
         //九宫格恢复原始：
     }
 
+    void InitialEntrances(int nextIndex)
+    {      
+        if (nextIndex == 2)
+        {
+            sceneEntrances = levelTwo.sceneEntrances;
+            playerInScene = "Level2_0";
+        }
+        else if(nextIndex == 3)
+        {
+            sceneEntrances = levelThree.sceneEntrances;
+            playerInScene = "Level3_0";
+        }
+        else
+        {
+            sceneEntrances = levelOne.sceneEntrances;  //否则回到主界面，重新设置为第一关的入口信息
+            playerInScene = "Level1_0";
+        }
+
+    }
+
+
     private void Update()
     {
-        if(currentScore==3)
+        if(currentScore==2)
         {
-            SceneManager.LoadSceneAsync("Test"); //得三分切换到Leve2_1 //自动销毁自身
-            Destroy(gameObject);
+            ResetAll();
+            InitialEntrances(currentLevelIndex + 1);
+            SceneManager.LoadSceneAsync(currentLevelIndex +1); 
+           // Destroy(gameObject);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -130,7 +155,11 @@ public class ScenesManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            SceneManager.LoadSceneAsync("Test");  //按F切换到Level1的九宫格场景
+            string currentActiveScene = SceneManager.GetActiveScene().name;
+            if (currentActiveScene.Contains("_"))  //有下划线说明在小场景，没有说明在九宫格
+                SceneManager.LoadSceneAsync("Level" + currentLevelIndex);  //按F切换到九宫格场景
+            else
+                SceneManager.LoadSceneAsync(playerInScene);
         }
     }
 
