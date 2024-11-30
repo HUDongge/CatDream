@@ -1,53 +1,53 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ScenesManager : MonoBehaviour
 {
-    // µ¥ÀıÊµÀı
+    // å•ä¾‹å®ä¾‹
     private static ScenesManager instance;
 
-    // »ñÈ¡µ¥ÀıÊµÀı
+    // è·å–å•ä¾‹å®ä¾‹
     public static ScenesManager Instance
     {
         get
         {
             if (instance == null)
             {
-                // ³¢ÊÔ²éÕÒÏÖÓĞµÄÊµÀı
+                // å°è¯•æŸ¥æ‰¾ç°æœ‰çš„å®ä¾‹
                 instance = FindObjectOfType<ScenesManager>();
 
-                // Èç¹û»¹Ã»ÓĞÊµÀı£¬´´½¨Ò»¸öĞÂµÄÊµÀı
+                // å¦‚æœè¿˜æ²¡æœ‰å®ä¾‹ï¼Œåˆ›å»ºä¸€ä¸ªæ–°çš„å®ä¾‹
                 if (instance == null)
                 {
                     GameObject singletonObject = new GameObject(typeof(ScenesManager).Name);
                     instance = singletonObject.AddComponent<ScenesManager>();
-                    DontDestroyOnLoad(singletonObject);  // È·±£ÔÚ³¡¾°ÇĞ»»Ê±²»»áÏú»Ù
+                    DontDestroyOnLoad(singletonObject);  // ç¡®ä¿åœ¨åœºæ™¯åˆ‡æ¢æ—¶ä¸ä¼šé”€æ¯
                 }
             }
             return instance;
         }
     }
 
-    // ´æ´¢Ã¿¸ö³¡¾°µÄÈë¿Ú×´Ì¬
+    // å­˜å‚¨æ¯ä¸ªåœºæ™¯çš„å…¥å£çŠ¶æ€
     private Dictionary<string, SceneEntrance> sceneEntrances;
 
-    public string Direction; //À´µÄ·½Ïò
+    public string Direction; //æ¥çš„æ–¹å‘
 
     private void Awake()
     {
-        // È·±£Ö»ÓĞÒ»¸öÊµÀı´æÔÚ
+        // ç¡®ä¿åªæœ‰ä¸€ä¸ªå®ä¾‹å­˜åœ¨
         if (instance != null && instance != this)
         {
-            Destroy(gameObject);  // Èç¹ûÒÑ¾­ÓĞÊµÀıÁË£¬¾ÍÏú»Ùµ±Ç°¶ÔÏó
+            Destroy(gameObject);  // å¦‚æœå·²ç»æœ‰å®ä¾‹äº†ï¼Œå°±é”€æ¯å½“å‰å¯¹è±¡
         }
         else
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);  // ±£³Ö³¡¾°¹ÜÀíÆ÷ÔÚÇĞ»»³¡¾°Ê±²»±»Ïú»Ù
+            DontDestroyOnLoad(gameObject);  // ä¿æŒåœºæ™¯ç®¡ç†å™¨åœ¨åˆ‡æ¢åœºæ™¯æ—¶ä¸è¢«é”€æ¯
         }
 
-        // ³õÊ¼»¯³¡¾°Èë¿Ú×´Ì¬£ºÉÏÏÂ×óÓÒ
+        // åˆå§‹åŒ–åœºæ™¯å…¥å£çŠ¶æ€ï¼šä¸Šä¸‹å·¦å³
         sceneEntrances = new Dictionary<string, SceneEntrance>
         {
             { "Level1_1", new SceneEntrance(false, false, false, true) }, 
@@ -61,7 +61,7 @@ public class ScenesManager : MonoBehaviour
         };
     }
 
-    // »ñÈ¡µ±Ç°³¡¾°µÄÈë¿Ú×´Ì¬
+    // è·å–å½“å‰åœºæ™¯çš„å…¥å£çŠ¶æ€
     public SceneEntrance GetSceneEntrance(string sceneName)
     {
         if (sceneEntrances.ContainsKey(sceneName))
@@ -75,21 +75,21 @@ public class ScenesManager : MonoBehaviour
         }
     }
 
-    // ÇĞ»»³¡¾°µÄÂß¼­
+    // åˆ‡æ¢åœºæ™¯çš„é€»è¾‘
     public void SwitchScene(int currentSceneIndex,string direction )
     {
-        int currentPos = SlideTest.sceneToPos[currentSceneIndex];//²éÕÒµ±Ç°Íæ¼ÒËùÔÚ³¡¾°µÄÔÚ¾Å¹¬¸ñÀïµÄÎ»ÖÃ
+        int currentPos = SlideTest.sceneToPos[currentSceneIndex];//æŸ¥æ‰¾å½“å‰ç©å®¶æ‰€åœ¨åœºæ™¯çš„åœ¨ä¹å®«æ ¼é‡Œçš„ä½ç½®
         if(direction=="right")
         {
             Debug.Log($"direction:{direction}");
 
             Direction = "right";
          
-            if ((currentPos + 1)% 3 == 0)  //ÔÚ¾Å¹¬¸ñ×îÓÒ±ßÁË£¬²»ÄÜÔÙÍùÓÒ×ß
+            if ((currentPos + 1)% 3 == 0)  //åœ¨ä¹å®«æ ¼æœ€å³è¾¹äº†ï¼Œä¸èƒ½å†å¾€å³èµ°
             {
                 return;
             }
-            else if (sceneEntrances[SlideTest.PosToScene[currentPos+1]].canPassLeft)  //·ñÔòÏòÓÒ×ßÁËÒ»¸ñ£¬ÕÒµ½¸Ã¸ñ×Ó¶ÔÓ¦µÄ³¡¾°
+            else if (sceneEntrances[SlideTest.PosToScene[currentPos+1]].canPassLeft)  //å¦åˆ™å‘å³èµ°äº†ä¸€æ ¼ï¼Œæ‰¾åˆ°è¯¥æ ¼å­å¯¹åº”çš„åœºæ™¯
             {
                 SceneManager.LoadScene(SlideTest.PosToScene[currentPos + 1]);
 
