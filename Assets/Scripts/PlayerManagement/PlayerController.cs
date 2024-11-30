@@ -16,21 +16,20 @@ using UnityEngine.UI;
         private bool isGrounded=true;
         private bool facingLeft = false;
         private Rigidbody2D rb;
-        private Animator animator;
         public float deathDelay = 3f;     // 死亡后的延迟时间
         private Vector3 lastCollisionPoint;  // 用于保存玩家死前接触的碰撞体位置
 
         public static event Action<Vector3> OnPlayerDeath;  // 事件声明
         public LayerMask groundLayer;
+        private Animator anim;
 
-       
 
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
            lastCollisionPoint = transform.position;
           
-        //    animator = GetComponent<Animator>();
+            anim = GetComponent<Animator>();
         }
 
         void Update()
@@ -41,21 +40,26 @@ using UnityEngine.UI;
             transform.position += new Vector3(movement * moveSpeed * Time.deltaTime, 0f, 0f);
 
             if ((Input.GetKeyDown(KeyCode.Space)|| Input.GetKeyDown(KeyCode.W)) && isGrounded)
-            {
-                Jump();
-                isGrounded = false;
+            {               
+                 Jump();
+                 anim.SetBool("jump_up", true);
+                 isGrounded = false;
             }
-        
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                SceneManager.LoadSceneAsync("Test");
+            }
+
+
         }
 
        
 
         void Jump()
         {
-            Vector2 velocity = rb.velocity;
+            Vector2 velocity = rb.velocity;        
             velocity.y = jumpHeight;
             rb.velocity = velocity;
-
         }
 
         void filp()
@@ -84,11 +88,21 @@ using UnityEngine.UI;
             }
             if (other.collider.tag == "Ground")
             {
-            isGrounded = true;
+               isGrounded = true;
+               anim.SetBool("jump_up",false);
             //  lastCollisionPoint = other.contacts[0].point;  // 记录第一个接触点的位置
 
             }
         }
+
+
+      /*  private void OnCollisionExit2D(Collision2D other)
+        {
+        if (other.collider.tag == "Ground")
+        {
+            isGrounded = false;  // 离开地面时，设置 isGrounded 为 false
+        }
+        }*/
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -113,6 +127,7 @@ using UnityEngine.UI;
         void Die()
         {
             OnPlayerDeath.Invoke(lastCollisionPoint);  // 传递玩家死前位置
+            anim.SetBool("IsDead", true);
             Destroy(gameObject.transform.parent.gameObject);
         }
 
