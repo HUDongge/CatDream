@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*本来想写一个level管理器，当分数够的时候加载到下一关，但是发现不需要，
+直接在每一关的场景切换单例管理里判断即可，所以这个暂时作废*/
 
 public class LevelManager : MonoBehaviour
 {
@@ -8,7 +10,6 @@ public class LevelManager : MonoBehaviour
 
     public int currentLevel = 1;      // 当前关卡
     public int totalLevels = 3;       // 总关卡数
-    public int currentScore = 0;      // 当前分数
     public int scorePerLevel = 3;   // 每关卡目标分数
 
     private void Awake()
@@ -31,7 +32,13 @@ public class LevelManager : MonoBehaviour
         {
             currentLevel = level;
             string sceneName = "Level" + level;  // 加载到下一关的九宫格场景Level1，Level2，Level3
-            SceneManager.LoadSceneAsync(sceneName); 
+            SceneManager.LoadSceneAsync(sceneName);
+
+            // 为当前关卡创建新的 ScenesManager（管理一个关卡内不同场景切换）实例
+            GameObject sceneSwitchManagerObj = new GameObject("ScenesManager");
+            sceneSwitchManagerObj.AddComponent<ScenesManager>();
+
+            //加载显示关卡的的分数
         }
         else
         {
@@ -40,25 +47,25 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    // 更新分数
-    public void UpdateScore(int score)
+    // 从存档里读取每一关的分数，在加载到该关卡时显示
+    public void CheckScore(int level)
     {
-        currentScore += score;
+        // 读取存储的得分
+        int currentScore = PlayerPrefs.GetInt("Level"+ level, 0); 
 
         // 如果达成当前关卡目标分数，加载下一个关卡
         if (currentScore >= scorePerLevel)
         {
-            currentLevel++;
-            currentScore = 0;
-            LoadLevel(currentLevel);
+            SceneManager.LoadSceneAsync(currentLevel);  //不太对
         }
     }
-
-     void Update()
+   
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
+
     }
 }

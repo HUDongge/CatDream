@@ -2344,6 +2344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Direction: 
+  currentScore: 0
 --- !u!4 &2069093853
 Transform:
   m_ObjectHideFlags: 0
