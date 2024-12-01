@@ -63,7 +63,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
             Direction = "right";
 
-            string nextScene = GetData.Instance.GetNameByIndex(currentPos + 1);
+            string nextScene = GridSelector.GetNameByIndex(currentPos + 1);
 
             if (((currentPos + 1)% 3 == 0)|| nextScene==null)  //在九宫格最右边了，不能再往右走
             {
@@ -79,7 +79,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
         {
             Direction = "left";
 
-            string nextScene = GetData.Instance.GetNameByIndex(currentPos - 1);
+            string nextScene = GridSelector.GetNameByIndex(currentPos - 1);
 
             if ((currentPos % 3 == 0)|| nextScene == null)  //当前场景在九宫格的最左边，不能继续往左走
             {
@@ -94,7 +94,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
         {
             Direction = "down";
 
-            string nextScene = GetData.Instance.GetNameByIndex(currentPos + 3);
+            string nextScene = GridSelector.GetNameByIndex(currentPos + 3);
 
             if (nextScene==null||currentPos == 6|| currentPos == 7|| currentPos == 8)
             {

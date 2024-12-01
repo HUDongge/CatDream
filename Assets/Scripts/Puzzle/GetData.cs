@@ -23,10 +23,10 @@ public class GetData : SingletonMono<GetData>
     {
         for (int i = 0; i < getGridItems.Length; i++)
         {
-            if (getGridItems[i] == null)
+          /*  if (getGridItems[i] == null)
             {
                 Debug.LogError("hhhhh");
-            }
+            }*/
                 if (getGridItems[i] != null && getGridItems[i].name == name)
                 {
                 Debug.Log($"GetIndexByName:   " + i);
