@@ -49,7 +49,7 @@ public class GridSelector : MonoBehaviour
     void HandleInput()
     {
         if (isSmallLevelOn)
-        {
+        {          
             return;
         }
 
@@ -150,7 +150,7 @@ public class GridSelector : MonoBehaviour
             AttachFrameToSelectedObject();
             PrintGrid();
 
-            GetData.Instance.getGridItems = (RectTransform[])gridItems.Clone();  //把数据传给GetData单例模式
+          //  GetData.Instance.getGridItems = (RectTransform[])gridItems.Clone();  //把数据传给GetData单例模式
         }
     }
 
@@ -176,8 +176,11 @@ public class GridSelector : MonoBehaviour
 
     public  static int GetIndexByName(string name)
     {
+        Debug.Log("GetIndexByName:"+ name);
         for (int i = 0; i < gridItems.Length; i++)
         {
+            if (gridItems[i] == null)
+                Debug.LogError("gridItems[i] is null");
             if (gridItems[i] != null && gridItems[i].name == name)
             {
                 return i;

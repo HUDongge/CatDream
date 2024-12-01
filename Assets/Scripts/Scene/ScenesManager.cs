@@ -58,8 +58,10 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
     // 切换场景的逻辑SwitchScene(玩家所在场景九宫格位置，来的方向)
     public void SwitchScene(int currentPos, string direction )
-    {     
-        if(direction=="right")
+    {
+        Debug.Log($"currentPlayerInPos:{currentPos}");
+
+        if (direction=="right")
         {
             Debug.Log($"direction:{direction}");
 
@@ -81,6 +83,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
         {
             Direction = "left";
 
+           
             string nextScene = GridSelector.GetNameByIndex(currentPos - 1);
 
             if ((currentPos % 3 == 0)|| nextScene == null)  //当前场景在九宫格的最左边，不能继续往左走
