@@ -15,26 +15,32 @@ public class GetData : SingletonMono<GetData>
     private void Start()
     {
         PrintGrid();
+        int temp=GetIndexByName("Level1_0");
+        Debug.Log($"temp:{temp}");
     }
 
     public  int GetIndexByName(string name)
     {
-        Debug.Log($"GetIndexByName:   "+name);
-
         for (int i = 0; i < getGridItems.Length; i++)
         {
-            if (getGridItems[i] != null && getGridItems[i].name == name)
+            if (getGridItems[i] == null)
             {
-                return i;
+                Debug.LogError("hhhhh");
             }
+                if (getGridItems[i] != null && getGridItems[i].name == name)
+                {
+                Debug.Log($"GetIndexByName:   " + i);
+                return i;
+               
+                }
         }
+        
+        Debug.Log($"GetIndexByName:   " + -1);
         return -1; // Return -1 if the item is not found
     }
 
     public  string GetNameByIndex(int index)
-    {
-
-        Debug.Log($"GetNameByIndex:   " + index);
+    {      
         if (index >= 0 && index < getGridItems.Length)
         {
             return getGridItems[index] != null ? getGridItems[index].name : "Empty";

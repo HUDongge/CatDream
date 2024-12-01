@@ -108,11 +108,11 @@ using UnityEngine.UI;
     {
         Debug.Log(SceneManager.GetActiveScene().name);
         int currentSceneIndex = GetData.Instance.GetIndexByName(SceneManager.GetActiveScene().name);
-          
+        Debug.Log($"currentSceneIndex:{currentSceneIndex}");
         if (other.CompareTag("RightBlock"))   //从右边走的话，看下一个场景的左边是否有通道
         {
             ScenesManager.Instance.SwitchScene(currentSceneIndex, "right");
-            Debug.Log($"currentSceneIndex:{currentSceneIndex}");
+            
         }
         else if (other.CompareTag("LeftBlock"))
         {
