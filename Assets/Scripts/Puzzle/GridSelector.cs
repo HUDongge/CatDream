@@ -7,14 +7,12 @@ public class GridSelector : MonoBehaviour
     public GameObject frame;         // The frame that highlights the selected object
     public GameObject emptySpace;    // Reference to the empty space object
 
-    private  RectTransform[] gridItems; // Array of all child objects in the grid
+    private RectTransform[] gridItems; // Array of all child objects in the grid
     private int selectedIndex;         // Index of the currently selected object
     private int columns = 3;           // Number of columns in the grid
     private bool isObjectSelected = false; // Whether an object is currently selected
 
     private Transform[] originalOrder; // Stores the original order of the child objects
-
-
 
     
 
@@ -34,9 +32,11 @@ public class GridSelector : MonoBehaviour
         selectedIndex = 0;
         AttachFrameToSelectedObject();
 
-        PrintGrid();
-        GetData.Instance.getGridItems = (RectTransform[])gridItems.Clone();
+        //PrintGrid();
+        //GetData.Instance.getGridItems = (RectTransform[])gridItems.Clone();
 
+        //LoadFromSingleton();
+        PrintGrid();
     }
 
     private void Update()
@@ -198,6 +198,49 @@ public class GridSelector : MonoBehaviour
             Debug.Log($"Index: {i}, Item Name: {itemName}");
         }
     }
+
+    public void SaveToSingleton()
+    {
+        GridManager.Instance.gridItemNames = new string[gridItems.Length];
+        for (int i = 0; i < gridItems.Length; i++)
+        {
+            GridManager.Instance.gridItemNames[i] = gridItems[i] != null ? gridItems[i].name : "Empty";
+        }
+    }
+
+    public void LoadFromSingleton()
+    {
+        if (GridManager.Instance != null && GridManager.Instance.gridItemNames != null)
+        {
+            for (int i = 0; i < GridManager.Instance.gridItemNames.Length; i++)
+            {
+                if (GridManager.Instance.gridItemNames[i] == "Empty")
+                {
+                    gridItems[i] = null;
+                }
+                else
+                {
+                    GameObject obj = GameObject.Find(GridManager.Instance.gridItemNames[i]);
+                    if (obj != null)
+                    {
+                        // Set the object in the correct position in the grid hierarchy
+                        gridItems[i] = obj.GetComponent<RectTransform>();
+                        obj.transform.SetParent(gridParent, false);
+
+                        // Optionally reset the local position to ensure alignment
+                        obj.transform.localPosition = new Vector3(
+                            (i % columns) * gridParent.rect.width / columns,
+                            -(i / columns) * gridParent.rect.height / columns,
+                            0
+                        );
+                    }
+                }
+            }
+
+            AttachFrameToSelectedObject(); // Reattach the frame to the selected item
+        }
+    }
+
 
 
 }

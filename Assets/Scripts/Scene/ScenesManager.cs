@@ -20,6 +20,10 @@ public class ScenesManager : SingletonMono<ScenesManager>
     public LevelTwoEntrance levelTwo;
     public LevelThreeEntrance levelThree;
 
+    public GridSelector gridSelector;
+
+    private bool ToggleScene = false;
+
     //  public List<Vector2> startPoint; 存储不同场景进入时动态生成玩家的位置
 
     private void Awake()
@@ -32,6 +36,8 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
         sceneEntrances = levelOne.sceneEntrances;
         playerInScene = "Level1_0";
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     // 获取当前场景的入口状态
@@ -155,12 +161,38 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
         if (Input.GetKeyDown(KeyCode.F))
         {
+            //if (gridSelector != null)
+            //gridSelector.SaveToSingleton();
+
             string currentActiveScene = SceneManager.GetActiveScene().name;
-            if (currentActiveScene.Contains("_"))  //有下划线说明在小场景，没有说明在九宫格
-                SceneManager.LoadSceneAsync("Level" + currentLevelIndex);  //按F切换到九宫格场景
+
+            if (ToggleScene)  //有下划线说明在小场景，没有说明在九宫格
+            {
+                SceneManager.UnloadSceneAsync("Level1_0");
+                ToggleScene = !ToggleScene;
+            }  //按F切换到九宫格场景
             else
-                SceneManager.LoadSceneAsync(playerInScene);
+            {
+                SceneManager.LoadSceneAsync("Level1_0", LoadSceneMode.Additive);
+                ToggleScene = !ToggleScene;
+            }
         }
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        gridSelector = FindObjectOfType<GridSelector>();
+
+        if (gridSelector != null)
+        {
+            Debug.Log($"GridSelector initialized in scene: {scene.name}");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 
 }
