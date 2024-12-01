@@ -23,6 +23,7 @@ using UnityEngine.UI;
         public LayerMask groundLayer;
         private Animator anim;
        
+        public ScenesManager scenesManager;
 
         void Start()
         {
@@ -51,7 +52,10 @@ using UnityEngine.UI;
                 anim.SetBool("jump_up", false);
             }
 
-
+            if (scenesManager == null) 
+            {
+                scenesManager =  FindObjectOfType<ScenesManager>();
+            }
         }
 
        
@@ -106,8 +110,8 @@ using UnityEngine.UI;
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(SceneManager.GetActiveScene().name);
-        int currentSceneIndex = GridSelector.GetIndexByName(SceneManager.GetActiveScene().name);
+        Debug.Log(scenesManager.currentActiveScene);
+        int currentSceneIndex = GridSelector.GetIndexByName(scenesManager.currentActiveScene);
         Debug.Log($"currentSceneIndex:{currentSceneIndex}");
 
         if (other.CompareTag("RightBlock"))   //从右边走的话，看下一个场景的左边是否有通道

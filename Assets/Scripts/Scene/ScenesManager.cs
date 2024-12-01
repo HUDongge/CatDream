@@ -24,6 +24,8 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
     private bool ToggleScene = false;
 
+    public string currentActiveScene;
+
     //  public List<Vector2> startPoint; 存储不同场景进入时动态生成玩家的位置
 
     private void Awake()
@@ -164,17 +166,18 @@ public class ScenesManager : SingletonMono<ScenesManager>
             //if (gridSelector != null)
             //gridSelector.SaveToSingleton();
 
-            string currentActiveScene = SceneManager.GetActiveScene().name;
+            currentActiveScene = gridSelector.GetSelectedObjectName();
 
             if (ToggleScene)  //有下划线说明在小场景，没有说明在九宫格
             {
-                SceneManager.UnloadSceneAsync("Level1_0");
+                SceneManager.UnloadSceneAsync(currentActiveScene);
                 ToggleScene = !ToggleScene;
                 gridSelector.isSmallLevelOn = false;
             }  //按F切换到九宫格场景
             else
             {
-                SceneManager.LoadSceneAsync("Level1_0", LoadSceneMode.Additive);
+                
+                SceneManager.LoadSceneAsync(currentActiveScene, LoadSceneMode.Additive);
                 ToggleScene = !ToggleScene;
                 gridSelector.isSmallLevelOn = true;
             }

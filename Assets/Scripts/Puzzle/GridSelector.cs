@@ -186,7 +186,7 @@ public class GridSelector : MonoBehaviour
         return -1; // Return -1 if the item is not found
     }
 
-    public static  string GetNameByIndex(int index)
+    public static string GetNameByIndex(int index)
     {
         if (index >= 0 && index < gridItems.Length)
         {
@@ -247,6 +247,17 @@ public class GridSelector : MonoBehaviour
             AttachFrameToSelectedObject(); // Reattach the frame to the selected item
         }
     }
+
+    public string GetSelectedObjectName()
+    {
+        // Ensure the selected index is valid
+        if (selectedIndex >= 0 && selectedIndex < gridItems.Length && gridItems[selectedIndex] != null)
+        {
+            return gridItems[selectedIndex].name;
+        }
+        return "None"; // Return "None" if no valid object is selected
+    }
+
 
 
 
