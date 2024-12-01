@@ -17,6 +17,8 @@ public class ScoreShow : MonoBehaviour
         }
         else if(ScenesManager.Instance.currentScore == 2)
         {
+            greyCollections[0].gameObject.SetActive(false);
+            Collections[0].gameObject.SetActive(true);
             greyCollections[1].gameObject.SetActive(false);
             Collections[1].gameObject.SetActive(true);
         }
