@@ -11,7 +11,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
     public string Direction; //来的方向
 
-    public int currentScore;  //本关卡当前得分
+    public int currentScore=0;  //本关卡当前得分
 
     public int currentLevelIndex;    //看是第几关
     public string playerInScene;    //当前玩家所在第几关
@@ -162,7 +162,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
         {
             ResetAll();
             InitialEntrances(currentLevelIndex + 1);
-            SceneManager.LoadSceneAsync(currentLevelIndex +1); 
+           //   SceneManager.LoadSceneAsync(currentLevelIndex +1); 
            // Destroy(gameObject);
         }
 

@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class GridSelector : MonoBehaviour
 {
-    public RectTransform gridParent; // Parent object with the Grid Layout Group
-    public GameObject frame;         // The frame that highlights the selected object
+    public  RectTransform gridParent; // Parent object with the Grid Layout Group
+    public  GameObject frame;         // The frame that highlights the selected object
     public GameObject emptySpace;    // Reference to the empty space object
 
     private static RectTransform[] gridItems; // Array of all child objects in the grid
-    private int selectedIndex;         // Index of the currently selected object
+    public static int selectedIndex;         // Index of the currently selected object
     private int columns = 3;           // Number of columns in the grid
-    private bool isObjectSelected = false; // Whether an object is currently selected
+    private  bool isObjectSelected = false; // Whether an object is currently selected
 
-    private Transform[] originalOrder; // Stores the original order of the child objects
+    private  Transform[] originalOrder; // Stores the original order of the child objects
 
     public bool isSmallLevelOn = false;
 
@@ -102,7 +102,7 @@ public class GridSelector : MonoBehaviour
         }
     }
 
-    void AttachFrameToSelectedObject()
+    public  void AttachFrameToSelectedObject()
     {
         // Attach the frame to the currently selected object
         if (selectedIndex >= 0 && selectedIndex < gridItems.Length)
@@ -154,7 +154,7 @@ public class GridSelector : MonoBehaviour
         }
     }
 
-    public void ResetGrid()
+    public  void ResetGrid()
     {
         // Clear the grid parent of all children
         for (int i = gridParent.childCount - 1; i >= 0; i--)
