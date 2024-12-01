@@ -170,11 +170,13 @@ public class ScenesManager : SingletonMono<ScenesManager>
             {
                 SceneManager.UnloadSceneAsync("Level1_0");
                 ToggleScene = !ToggleScene;
+                gridSelector.isSmallLevelOn = false;
             }  //按F切换到九宫格场景
             else
             {
                 SceneManager.LoadSceneAsync("Level1_0", LoadSceneMode.Additive);
                 ToggleScene = !ToggleScene;
+                gridSelector.isSmallLevelOn = true;
             }
         }
     }

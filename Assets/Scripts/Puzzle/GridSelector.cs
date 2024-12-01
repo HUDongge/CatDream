@@ -14,6 +14,8 @@ public class GridSelector : MonoBehaviour
 
     private Transform[] originalOrder; // Stores the original order of the child objects
 
+    public bool isSmallLevelOn = false;
+
     
 
     private void Start()
@@ -46,6 +48,11 @@ public class GridSelector : MonoBehaviour
 
     void HandleInput()
     {
+        if (isSmallLevelOn)
+        {
+            return;
+        }
+
         if (isObjectSelected)
         {
             // Move the selected object if it's adjacent to the empty space
