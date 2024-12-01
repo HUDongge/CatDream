@@ -180,7 +180,7 @@ public class GridSelector : MonoBehaviour
         for (int i = 0; i < gridItems.Length; i++)
         {
             if (gridItems[i] == null)
-                Debug.LogError("gridItems[i] is null");
+                Debug.LogError("gridItems " + i + " is null");
             if (gridItems[i] != null && gridItems[i].name == name)
             {
                 return i;

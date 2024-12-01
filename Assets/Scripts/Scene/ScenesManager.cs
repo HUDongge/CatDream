@@ -24,7 +24,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
     private bool ToggleScene = false;
 
-    public string currentActiveScene;
+    public string currentActiveScene = "NULL";
 
     //  public List<Vector2> startPoint; 存储不同场景进入时动态生成玩家的位置
 
@@ -57,66 +57,73 @@ public class ScenesManager : SingletonMono<ScenesManager>
     }
 
     // 切换场景的逻辑SwitchScene(玩家所在场景九宫格位置，来的方向)
-    public void SwitchScene(int currentPos, string direction )
+    public void SwitchScene(int currentPos, string direction)
     {
-        Debug.Log($"currentPlayerInPos:{currentPos}");
+        Debug.Log($"currentPlayerInPos: {currentPos}");
 
-        if (direction=="right")
+        // Determine the direction and the next scene
+        string nextScene = null;
+
+        if (direction == "right")
         {
-            Debug.Log($"direction:{direction}");
-
+            Debug.Log($"direction: {direction}");
             Direction = "right";
+            nextScene = GridSelector.GetNameByIndex(currentPos + 1);
 
-            string nextScene = GridSelector.GetNameByIndex(currentPos + 1);
-
-            if (((currentPos + 1)% 3 == 0)|| nextScene==null)  //在九宫格最右边了，不能再往右走
-            {
+            // Check if the next position is valid
+            if (((currentPos + 1) % 3 == 0) || nextScene == null)  // Cannot move right if at the rightmost column or invalid
                 return;
-            }
-            else if (sceneEntrances[nextScene].canPassLeft)  //否则向右走了一格，找到该格子对应的场景
-            {
-                //  GridSelector.Instance.GetNameByIndex();
-                SceneManager.LoadSceneAsync(nextScene);           
-            }    
+
+            if (!sceneEntrances[nextScene].canPassLeft)  // Check for valid scene transition
+                return;
         }
-        else if(direction=="left")
+        else if (direction == "left")
         {
+            Debug.Log($"direction: {direction}");
             Direction = "left";
+            nextScene = GridSelector.GetNameByIndex(currentPos - 1);
 
-           
-            string nextScene = GridSelector.GetNameByIndex(currentPos - 1);
-
-            if ((currentPos % 3 == 0)|| nextScene == null)  //当前场景在九宫格的最左边，不能继续往左走
-            {
+            // Check if the next position is valid
+            if ((currentPos % 3 == 0) || nextScene == null)  // Cannot move left if at the leftmost column or invalid
                 return;
-            }
-            else if(sceneEntrances[nextScene].canPassRight)
-            {
-                SceneManager.LoadSceneAsync(nextScene);
-            }
+
+            if (!sceneEntrances[nextScene].canPassRight)  // Check for valid scene transition
+                return;
         }
-        else if(direction=="down")
+        else if (direction == "down")
         {
+            Debug.Log($"direction: {direction}");
             Direction = "down";
+            nextScene = GridSelector.GetNameByIndex(currentPos + 3);
 
-            string nextScene = GridSelector.GetNameByIndex(currentPos + 3);
-
-            if (nextScene==null||currentPos == 6|| currentPos == 7|| currentPos == 8)
-            {
+            // Check if the next position is valid
+            if (nextScene == null || currentPos == 6 || currentPos == 7 || currentPos == 8)  // Cannot move down if at the bottom row
                 return;
-            }
-            else if(sceneEntrances[nextScene].canPassUp)
-            {
-                SceneManager.LoadSceneAsync(nextScene);
-            }
+
+            if (!sceneEntrances[nextScene].canPassUp)  // Check for valid scene transition
+                return;
         }
-       
 
+        // If nextScene is valid, proceed with unloading and loading
+        if (!string.IsNullOrEmpty(nextScene))
+        {
+            // Unload the current scene (add logic to keep the main level persistent)
+            string currentScene = GridSelector.GetNameByIndex(currentPos);
+            if (!string.IsNullOrEmpty(currentScene) && currentScene != "Level1")  // Ensure we don't unload the main level
+            {
+                SceneManager.UnloadSceneAsync(currentScene);
+            }
 
+            // Load the new scene additively
+            SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Additive);
+            Debug.Log($"Switching to scene: {nextScene}");
+            currentActiveScene = nextScene;
+        }
     }
 
-  
-    
+
+
+
     public void ResetAll()
     {
         currentScore = 0;
@@ -169,17 +176,36 @@ public class ScenesManager : SingletonMono<ScenesManager>
             //if (gridSelector != null)
             //gridSelector.SaveToSingleton();
 
+            if (currentActiveScene == "NULL")
             currentActiveScene = gridSelector.GetSelectedObjectName();
 
             if (ToggleScene)  //有下划线说明在小场景，没有说明在九宫格
             {
-                SceneManager.UnloadSceneAsync(currentActiveScene);
+                if (!string.IsNullOrEmpty(currentActiveScene) && currentActiveScene != "Level1")
+                {
+                    Scene sceneToUnload = SceneManager.GetSceneByName(currentActiveScene);
+
+                    if (sceneToUnload.isLoaded)
+                    {
+                        SceneManager.UnloadSceneAsync(currentActiveScene);
+                        Debug.Log($"Unloading scene: {currentActiveScene}");
+                    }
+                    else
+                    {
+                        Debug.LogError($"Scene '{currentActiveScene}' is not currently loaded. Cannot unload.");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Invalid scene name or trying to unload the main scene.");
+                }
+
                 ToggleScene = !ToggleScene;
                 gridSelector.isSmallLevelOn = false;
+                currentActiveScene = "NULL";
             }  //按F切换到九宫格场景
             else
-            {
-                
+            {   
                 SceneManager.LoadSceneAsync(currentActiveScene, LoadSceneMode.Additive);
                 ToggleScene = !ToggleScene;
                 gridSelector.isSmallLevelOn = true;
