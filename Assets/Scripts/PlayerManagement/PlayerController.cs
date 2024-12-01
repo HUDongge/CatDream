@@ -110,21 +110,25 @@ using UnityEngine.UI;
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(scenesManager.currentActiveScene);
-        int currentSceneIndex = GridSelector.GetIndexByName(scenesManager.currentActiveScene);
-        Debug.Log($"currentSceneIndex:{currentSceneIndex}");
+       // Debug.Log(scenesManager.currentActiveScene);
+        int currentSceneIndex = GridSelector.GetIndexByName(gameObject.scene.name);
+        Debug.Log($"playerController脚本所在场景名字:{gameObject.scene.name}");
+        Debug.Log($"OnTriggerEnter2D当前玩家所在九宫格号:{currentSceneIndex}");
 
         if (other.CompareTag("RightBlock"))   //从右边走的话，看下一个场景的左边是否有通道
         {
+            Debug.Log("RightBlock");
             ScenesManager.Instance.SwitchScene(currentSceneIndex, "right");
             
         }
         else if (other.CompareTag("LeftBlock"))
         {
+            Debug.Log("LeftBlock");
             ScenesManager.Instance.SwitchScene(currentSceneIndex, "left");
         }
         else if (other.CompareTag("DownBlock"))
         {
+            Debug.Log("DownBlock");
             ScenesManager.Instance.SwitchScene(currentSceneIndex, "down");
         }
 
