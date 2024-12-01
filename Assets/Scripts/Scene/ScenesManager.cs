@@ -120,6 +120,10 @@ public class ScenesManager : SingletonMono<ScenesManager>
             Debug.Log($"Switching to scene: {nextScene}");
             currentActiveScene = nextScene;
         }
+        else
+        {
+            Debug.LogError("nextscene is null");
+        }
     }
 
 
