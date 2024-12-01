@@ -22,7 +22,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
     public GridSelector gridSelector;
 
-    private bool ToggleScene = false;
+    public bool ToggleScene = false;
 
     public string currentActiveScene = "NULL";
 
@@ -149,7 +149,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
     {      
         if (nextIndex == 2)
         {
-            sceneEntrances = levelTwo.sceneEntrances;
+            //sceneEntrances = levelTwo.sceneEntrances;
             playerInScene = "Level2_0";
           
         }
