@@ -32,6 +32,7 @@ using UnityEngine.UI;
            // Debug.Log(lastCollisionPoint);
             anim = GetComponent<Animator>();
             ScenesManager.Instance.playerInScene = SceneManager.GetActiveScene().name;
+      
     }
 
         void Update()

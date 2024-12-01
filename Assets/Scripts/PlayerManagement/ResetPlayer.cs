@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ResetPlayer : MonoBehaviour
 {
     public GameObject playerPrefab;
-    public float respawnDelay = 3f;  // 重生延迟时间
+    public float respawnDelay = 1f;  // 重生延迟时间
 
     void OnEnable()
     {
@@ -30,7 +31,8 @@ public class ResetPlayer : MonoBehaviour
         yield return new WaitForSeconds(respawnDelay);
         
         GameObject newPlayer=Instantiate(playerPrefab, playerPosition, Quaternion.identity);
-      
+        SceneManager.MoveGameObjectToScene(newPlayer, gameObject.scene);
+
     }
 
 }
