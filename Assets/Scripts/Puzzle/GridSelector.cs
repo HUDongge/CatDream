@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GridSelector : MonoBehaviour
 {
@@ -16,7 +18,9 @@ public class GridSelector : MonoBehaviour
 
     public bool isSmallLevelOn = false;
 
-    
+    public Button ResetButton;
+    public Button ReturnButton;
+    public Button ReturnSmallMap;
 
     private void Start()
     {
@@ -39,6 +43,9 @@ public class GridSelector : MonoBehaviour
 
         //LoadFromSingleton();
         PrintGrid();
+        ResetButton.onClick.AddListener(OnResetButtonClick);
+        ReturnButton.onClick.AddListener(OnReturnButtonClick);
+        ReturnSmallMap.onClick.AddListener(OnReturnSmallMapClick);
     }
 
     private void Update()
@@ -81,6 +88,20 @@ public class GridSelector : MonoBehaviour
         {
             ResetGrid();
         }
+    }
+
+    void OnResetButtonClick()
+    {
+        ResetGrid();
+    }
+    void OnReturnButtonClick()
+    {
+        SceneManager.LoadSceneAsync("Tutorial");
+    }
+    void OnReturnSmallMapClick()
+    {
+        SceneManager.LoadSceneAsync(GetNameByIndex(selectedIndex));
+        //SceneManager.LoadSceneAsync(ScenesManager.Instance.playerInScene);
     }
 
     void MoveSelection(int offset)

@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class ScoreShow : MonoBehaviour
 {
-    public  int currentCount = ScenesManager.Instance.currentScore;
     public List<Image> Collections; //有颜色的
     public List<Image> greyCollections;  //灰色的
     void Update()
     {
+        Debug.Log($"ScenesManager.Instance.currentScore:{ScenesManager.Instance.currentScore}");
         if (ScenesManager.Instance.currentScore==1)
         {
             greyCollections[0].gameObject.SetActive(false);

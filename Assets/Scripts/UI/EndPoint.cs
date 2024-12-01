@@ -10,15 +10,17 @@ public class EndPoint : MonoBehaviour
         int currentLevel= ScenesManager.Instance.currentLevelIndex;
         if (other.CompareTag("Player")&& ScenesManager.Instance.currentScore==2)
         {
-            if (currentLevel == 1)
-            {
-                SceneManager.LoadSceneAsync("Level2");
-            }
-            else
-            {
-                SceneManager.LoadSceneAsync("MainMenu");
-            }
-            Destroy(this.gameObject);
+            SceneManager.LoadSceneAsync("MainMenu");
+            /* if (currentLevel == 1)
+             {
+                 SceneManager.LoadSceneAsync("Level2");
+                 ScenesManager.Instance.ResetAll();
+             }
+             else
+             {
+                 SceneManager.LoadSceneAsync("MainMenu");
+             }
+             Destroy(this.gameObject);*/
         }
 
     }

@@ -26,6 +26,8 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
     public string currentActiveScene = "NULL";
 
+    public  bool isFirstCome = true;
+    private  AudioSource audioSource;
     //  public List<Vector2> startPoint; 存储不同场景进入时动态生成玩家的位置
 
     private void Awake()
@@ -38,10 +40,13 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
         sceneEntrances = levelOne.sceneEntrances;
         playerInScene = "Level1_0";
-
+        ResetAll();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.Play();
     }
 
+   
     // 获取当前场景的入口状态
     public SceneEntrance GetSceneEntrance(string sceneName)
     {
@@ -129,12 +134,12 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
 
 
-    public void ResetAll()
+    public  void ResetAll()
     {
         currentScore = 0;
         Direction = "";
         playerInScene = "Level" + currentLevelIndex + "_" + 1;
-
+        isFirstCome = true;
         //玩家重生在出发点：
 
         //九宫格恢复原始：
@@ -146,11 +151,13 @@ public class ScenesManager : SingletonMono<ScenesManager>
         {
             sceneEntrances = levelTwo.sceneEntrances;
             playerInScene = "Level2_0";
+          
         }
         else
         {
             sceneEntrances = levelOne.sceneEntrances;  //否则回到主界面，重新设置为第一关的入口信息
             playerInScene = "Level1_0";
+           
         }
 
     }
@@ -160,7 +167,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
     {
         if(currentScore==2)
         {
-            ResetAll();
+           
             InitialEntrances(currentLevelIndex + 1);
            //   SceneManager.LoadSceneAsync(currentLevelIndex +1); 
            // Destroy(gameObject);
@@ -194,7 +201,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
                         Debug.Log($"Unloading scene: {currentActiveScene}");
                     }
                     else
-                    {
+                    {                       
                         Debug.LogError($"Scene '{currentActiveScene}' is not currently loaded. Cannot unload.");
                     }
                 }

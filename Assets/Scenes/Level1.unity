@@ -762,6 +762,9 @@ MonoBehaviour:
   frame: {fileID: 667332154}
   emptySpace: {fileID: 376203731}
   isSmallLevelOn: 0
+  ResetButton: {fileID: 5443848383903452294}
+  ReturnButton: {fileID: 7027744924087344117}
+  ReturnSmallMap: {fileID: 56850436362156620}
 --- !u!4 &987169692
 Transform:
   m_ObjectHideFlags: 0
@@ -1373,7 +1376,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2034092301}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &2034092303
 Camera:
   m_ObjectHideFlags: 0
@@ -1696,7 +1699,6 @@ Transform:
   m_Children:
   - {fileID: 6083701197423742993}
   - {fileID: 8426996201368080712}
-  - {fileID: 8781985110858053478}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2147460342060658003
@@ -1752,23 +1754,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8426996201368080712}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2196228684924469437
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8781985110858053478}
-  - component: {fileID: 3257403067245579291}
-  m_Layer: 0
-  m_Name: ButtonManage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!114 &2294794259244619595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1938,21 +1923,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &3257403067245579291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2196228684924469437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd86960055ed1be47974371804ff0a22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  returnSlideButton: {fileID: 56850436362156620}
-  resetButton: {fileID: 5443848383903452294}
-  returnInfoButton: {fileID: 7027744924087344117}
 --- !u!1 &3930364298962968894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1966,7 +1936,7 @@ GameObject:
   - component: {fileID: 2294794259244619595}
   - component: {fileID: 56850436362156620}
   m_Layer: 5
-  m_Name: confirm
+  m_Name: Paw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2710,21 +2680,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!4 &8781985110858053478
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2196228684924469437}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960.0161, y: -541.81464, z: 0.0071149687}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1959851128872287676}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9144749331897571611
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ResetPlayer : MonoBehaviour
 {
     public GameObject playerPrefab;
-    public float respawnDelay = 1f;  // 重生延迟时间
+    public float respawnDelay = 0.5f;  // 重生延迟时间
 
     void OnEnable()
     {

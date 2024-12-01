@@ -37,10 +37,11 @@ using UnityEngine.UI;
 
         void Update()
         {
-            
-            movement = Input.GetAxis("Horizontal");
-            filp();
-            transform.position += new Vector3(movement * moveSpeed * Time.deltaTime, 0f, 0f);
+
+             movement = Input.GetAxis("Horizontal");
+          // movement = Input.GetAxisRaw("Horizontal");
+             filp();
+             transform.position += new Vector3(movement * moveSpeed * Time.deltaTime, 0f, 0f);
 
             if ((Input.GetKeyDown(KeyCode.Space)|| Input.GetKeyDown(KeyCode.W)) && isGrounded)
             {               
@@ -70,12 +71,12 @@ using UnityEngine.UI;
 
         void filp()
         {
-            if(movement<0f && facingLeft)
+            if(Input.GetKey(KeyCode.A) && facingLeft)
             {
                 transform.eulerAngles = new Vector3(0f,-180f,0f);
                 facingLeft = false;
             }
-            else if(movement>0f && facingLeft==false)
+            else if(Input.GetKey(KeyCode.D) && facingLeft ==false)
             {
                 transform.eulerAngles = new Vector3(0f,0f,0f);
                 facingLeft = true;
