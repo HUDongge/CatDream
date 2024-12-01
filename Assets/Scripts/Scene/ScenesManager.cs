@@ -147,11 +147,6 @@ public class ScenesManager : SingletonMono<ScenesManager>
             sceneEntrances = levelTwo.sceneEntrances;
             playerInScene = "Level2_0";
         }
-        else if(nextIndex == 3)
-        {
-            sceneEntrances = levelThree.sceneEntrances;
-            playerInScene = "Level3_0";
-        }
         else
         {
             sceneEntrances = levelOne.sceneEntrances;  //否则回到主界面，重新设置为第一关的入口信息
@@ -182,7 +177,10 @@ public class ScenesManager : SingletonMono<ScenesManager>
             //gridSelector.SaveToSingleton();
 
             if (currentActiveScene == "NULL")
-            currentActiveScene = gridSelector.GetSelectedObjectName();
+            {
+                currentActiveScene = gridSelector.GetSelectedObjectName();
+                //currentActiveScene = playerInScene;
+            }
 
             if (ToggleScene)  //有下划线说明在小场景，没有说明在九宫格
             {

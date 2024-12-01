@@ -11,7 +11,7 @@ public class SpawnPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       string direction = ScenesManager.Instance.Direction;
+        string direction = ScenesManager.Instance.Direction;
         if (direction != null)
         {
             if (direction == "left")
