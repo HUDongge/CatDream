@@ -89,6 +89,7 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
             if (!sceneEntrances[nextScene].canPassRight)  // Check for valid scene transition
                 return;
+           // Debug.Log();
         }
         else if (direction == "down")
         {

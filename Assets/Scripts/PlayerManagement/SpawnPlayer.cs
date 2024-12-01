@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpawnPlayer : MonoBehaviour
 {
@@ -11,15 +12,26 @@ public class SpawnPlayer : MonoBehaviour
     void Start()
     {
        string direction = ScenesManager.Instance.Direction;
-       // Debug.Log(direction);
-         if(direction == "left")
+        if (direction != null)
         {
-            rightPlayer.SetActive(true);
+            if (direction == "left")
+            {
+                rightPlayer.SetActive(true);
+                leftPlayer.SetActive(false);
+            }
+            else //右边或者从上面下来的固定生成点都是左边，如果是只有一个入口，场景摆地生成点位置是一样的
+            {
+                leftPlayer.SetActive(true);
+                rightPlayer.SetActive(false);
+            }
         }
-        else //右边或者从上面下来的固定生成点都是左边，如果是只有一个入口，场景摆地生成点位置是一样的
+        else
         {
             leftPlayer.SetActive(true);
+            rightPlayer.SetActive(false);
         }
+      //  SceneManager.LoadSceneAsync("Level" + ScenesManager.Instance.currentLevelIndex, LoadSceneMode.Additive);
+
     }
 
    

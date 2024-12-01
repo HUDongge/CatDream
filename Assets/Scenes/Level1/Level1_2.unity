@@ -447,6 +447,8 @@ GameObject:
   - component: {fileID: 799226124}
   - component: {fileID: 799226123}
   - component: {fileID: 799226125}
+  - component: {fileID: 799226127}
+  - component: {fileID: 799226126}
   m_Layer: 0
   m_Name: Tilemap_Base
   m_TagString: Ground
@@ -1165,11 +1167,131 @@ TilemapCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!66 &799226126
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799226121}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 799226125}
+    m_ColliderPaths:
+    - - X: 157596144
+        Y: 112596160
+      - X: 67403848
+        Y: 112596160
+      - X: 67403848
+        Y: 97403848
+      - X: 149903856
+        Y: 97403848
+      - X: 149903856
+        Y: 30096156
+      - X: 134903856
+        Y: 30096156
+      - X: 134903856
+        Y: 22403848
+      - X: 157596144
+        Y: 22403848
+    - - X: 120096152
+        Y: 30096156
+      - X: 105096152
+        Y: 30096156
+      - X: 105096152
+        Y: 37596156
+      - X: 90096160
+        Y: 37596156
+      - X: 90096160
+        Y: 45096156
+      - X: 67403848
+        Y: 45096156
+      - X: 67403848
+        Y: 22403848
+      - X: 120096152
+        Y: 22403848
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 15.759585, y: 2.2403848}
+      - {x: 15.759585, y: 11.259616}
+      - {x: 6.740385, y: 11.259586}
+      - {x: 6.7404146, y: 9.740385}
+      - {x: 14.990386, y: 9.7403555}
+      - {x: 14.990357, y: 3.0096157}
+      - {x: 13.490386, y: 3.0095863}
+      - {x: 13.490415, y: 2.2403848}
+    - - {x: 12.009585, y: 2.2403848}
+      - {x: 12.009585, y: 3.0096157}
+      - {x: 10.509615, y: 3.009645}
+      - {x: 10.509585, y: 3.7596157}
+      - {x: 9.009616, y: 3.7596447}
+      - {x: 9.009586, y: 4.5096154}
+      - {x: 6.740385, y: 4.5095863}
+      - {x: 6.7404146, y: 2.2403848}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 799226121}
+--- !u!50 &799226127
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 799226121}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &889393179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1468,6 +1590,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4647905061770390939, guid: 919185e2a95f27244a9fd1d4986240b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4820654536280769964, guid: 919185e2a95f27244a9fd1d4986240b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.27
@@ -1590,6 +1716,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 1.82
       objectReference: {fileID: 0}
+    - target: {fileID: 4453416458134788593, guid: 5d08d36780c737248be3f766988c549e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.92
+      objectReference: {fileID: 0}
     - target: {fileID: 5631000360765250995, guid: 5d08d36780c737248be3f766988c549e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.58
@@ -1622,6 +1752,10 @@ PrefabInstance:
     - target: {fileID: 4647905061770390939, guid: 919185e2a95f27244a9fd1d4986240b8, type: 3}
       propertyPath: m_Name
       value: Player (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4647905061770390939, guid: 919185e2a95f27244a9fd1d4986240b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4820654536280769964, guid: 919185e2a95f27244a9fd1d4986240b8, type: 3}
       propertyPath: m_LocalPosition.x
