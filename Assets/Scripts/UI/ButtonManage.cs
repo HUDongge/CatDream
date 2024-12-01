@@ -28,7 +28,7 @@ public class ButtonManage : MonoBehaviour
         ScenesManager.Instance.ResetAll();
         //GridSelector.Instance.ResetGrid(); //格子清空
         SceneManager.LoadSceneAsync("Level" + ScenesManager.Instance.currentLevelIndex); //返回九宫格
-        Debug.Log(ScenesManager.Instance.currentScore);
+       // Debug.Log(ScenesManager.Instance.currentScore);
     }
 
     void OnInfoClick()

@@ -31,7 +31,7 @@ using UnityEngine.UI;
            lastCollisionPoint = transform.position;
            // Debug.Log(lastCollisionPoint);
             anim = GetComponent<Animator>();
-            ScenesManager.Instance.playerInScene = SceneManager.GetActiveScene().name;
+            ScenesManager.Instance.playerInScene = gameObject.scene.name;
       
     }
 
