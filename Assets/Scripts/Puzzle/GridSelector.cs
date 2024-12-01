@@ -7,7 +7,7 @@ public class GridSelector : MonoBehaviour
     public GameObject frame;         // The frame that highlights the selected object
     public GameObject emptySpace;    // Reference to the empty space object
 
-    private RectTransform[] gridItems; // Array of all child objects in the grid
+    private static RectTransform[] gridItems; // Array of all child objects in the grid
     private int selectedIndex;         // Index of the currently selected object
     private int columns = 3;           // Number of columns in the grid
     private bool isObjectSelected = false; // Whether an object is currently selected
@@ -174,7 +174,7 @@ public class GridSelector : MonoBehaviour
         AttachFrameToSelectedObject();
     }
 
-    public  int GetIndexByName(string name)
+    public  static int GetIndexByName(string name)
     {
         for (int i = 0; i < gridItems.Length; i++)
         {
@@ -186,7 +186,7 @@ public class GridSelector : MonoBehaviour
         return -1; // Return -1 if the item is not found
     }
 
-    public  string GetNameByIndex(int index)
+    public static  string GetNameByIndex(int index)
     {
         if (index >= 0 && index < gridItems.Length)
         {

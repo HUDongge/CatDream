@@ -761,6 +761,7 @@ MonoBehaviour:
   gridParent: {fileID: 661634095}
   frame: {fileID: 667332154}
   emptySpace: {fileID: 376203731}
+  isSmallLevelOn: 0
 --- !u!4 &987169692
 Transform:
   m_ObjectHideFlags: 0
