@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,18 +8,18 @@ public class ScenesManager : SingletonMono<ScenesManager>
     
 
     // 存储每个场景的入口状态
-    private Dictionary<string, SceneEntrance> sceneEntrances;
+    public Dictionary<string, SceneEntrance> sceneEntrances=new Dictionary<string, SceneEntrance>();
 
     public string Direction; //来的方向
 
     public int currentScore=0;  //本关卡当前得分
 
     public int currentLevelIndex;    //看是第几关
-    public string playerInScene;    //当前玩家所在第几关
+    public string playerInScene;    //当前玩家所在场景是
 
-    public LevelOneEntrance levelOne;
-    public LevelTwoEntrance levelTwo;
-    public LevelThreeEntrance levelThree;
+    public LevelOneEntrance levelOne=new LevelOneEntrance();
+    public LevelTwoEntrance levelTwo=new LevelTwoEntrance();
+  
 
     public GridSelector gridSelector;
 
@@ -34,9 +35,9 @@ public class ScenesManager : SingletonMono<ScenesManager>
     {
         base.Awake();
         currentLevelIndex = 1;  //从第一关开始
-        levelOne = new LevelOneEntrance();
-        levelTwo = new LevelTwoEntrance();
-        levelThree = new LevelThreeEntrance();
+      //  levelOne = new LevelOneEntrance();
+      //  levelTwo = new LevelTwoEntrance();
+   
 
         sceneEntrances = levelOne.sceneEntrances;
         playerInScene = "Level1_0";
@@ -138,25 +139,31 @@ public class ScenesManager : SingletonMono<ScenesManager>
     {
         currentScore = 0;
         Direction = "";
-        playerInScene = "Level" + currentLevelIndex + "_" + 1;
-        isFirstCome = true;
+        playerInScene = "Level" + currentLevelIndex + "_" + 0;
+       // isFirstCome = true;
         //玩家重生在出发点：
 
         //九宫格恢复原始：
     }
 
-    void InitialEntrances(int nextIndex)
-    {      
+    public void InitialEntrances(int nextIndex)
+    {
+       
         if (nextIndex == 2)
         {
-            //sceneEntrances = levelTwo.sceneEntrances;
+            Debug.LogError("执行了InitialEntrances!!!");
+         //   levelTwo = new LevelTwoEntrance();
+            
+            sceneEntrances = levelTwo.sceneEntrances;
+           
             playerInScene = "Level2_0";
           
         }
         else
         {
+            levelOne = new LevelOneEntrance();
             sceneEntrances = levelOne.sceneEntrances;  //否则回到主界面，重新设置为第一关的入口信息
-            playerInScene = "Level1_0";
+           playerInScene = "Level1_0";
            
         }
 
@@ -165,13 +172,10 @@ public class ScenesManager : SingletonMono<ScenesManager>
 
     private void Update()
     {
-        if(currentScore==2)
-        {
-           
-            InitialEntrances(currentLevelIndex + 1);
-           //   SceneManager.LoadSceneAsync(currentLevelIndex +1); 
-           // Destroy(gameObject);
-        }
+       /* if(currentScore==2)
+        {           
+            InitialEntrances(currentLevelIndex + 1);          
+        }*/
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

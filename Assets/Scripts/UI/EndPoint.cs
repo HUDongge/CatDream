@@ -25,14 +25,16 @@ public class EndPoint : MonoBehaviour
             {
                 SceneManager.LoadSceneAsync("Level2");
                 ScenesManager.Instance.ResetAll();
+              //  ScenesManager.Instance.currentScore = 0; ///
                 scenesManager.currentActiveScene = "NULL";
                 scenesManager.ToggleScene = false;
+                //ScenesManager.Instance.InitialEntrances(2);
             }
             else
             {
                 SceneManager.LoadSceneAsync("MainMenu");
             }
-            Destroy(this.gameObject);
+          //  Destroy(this.gameObject);
         }
 
     }

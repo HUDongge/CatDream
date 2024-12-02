@@ -1580,11 +1580,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4975120410706182465, guid: 5d08d36780c737248be3f766988c549e, type: 3}
       propertyPath: m_Size.x
-      value: 6.4404864
+      value: 9.91461
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975120410706182465, guid: 5d08d36780c737248be3f766988c549e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.704427
       objectReference: {fileID: 0}
     - target: {fileID: 4975120410706182465, guid: 5d08d36780c737248be3f766988c549e, type: 3}
       propertyPath: m_Offset.x
-      value: -1.0897529
+      value: 0.64730835
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975120410706182465, guid: 5d08d36780c737248be3f766988c549e, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.14778626
+      objectReference: {fileID: 0}
+    - target: {fileID: 5845986395293263546, guid: 5d08d36780c737248be3f766988c549e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132186473144400732, guid: 5d08d36780c737248be3f766988c549e, type: 3}
+      propertyPath: m_Size.x
+      value: 2.3534095
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132186473144400732, guid: 5d08d36780c737248be3f766988c549e, type: 3}
+      propertyPath: m_Size.y
+      value: 0.6965151
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132186473144400732, guid: 5d08d36780c737248be3f766988c549e, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.67670476
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132186473144400732, guid: 5d08d36780c737248be3f766988c549e, type: 3}
+      propertyPath: m_Offset.y
+      value: -1.4306083
       objectReference: {fileID: 0}
     - target: {fileID: 6497962261299597987, guid: 5d08d36780c737248be3f766988c549e, type: 3}
       propertyPath: m_Pivot.x
@@ -2126,9 +2154,10 @@ GameObject:
   - component: {fileID: 1039119540}
   - component: {fileID: 1039119542}
   - component: {fileID: 1039119541}
+  - component: {fileID: 1039119543}
   m_Layer: 0
   m_Name: Tilemap_Water
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2343,6 +2372,42 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1039119543
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039119539}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1001 &1311967389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2420,6 +2485,7 @@ GameObject:
   - component: {fileID: 1582396959}
   - component: {fileID: 1582396961}
   - component: {fileID: 1582396960}
+  - component: {fileID: 1582396962}
   m_Layer: 0
   m_Name: Tilemap_Platform
   m_TagString: Untagged
@@ -2697,6 +2763,42 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &1582396962
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582396958}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &1672350661
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class ScoreShow : MonoBehaviour
     public List<Image> greyCollections;  //»ÒÉ«µÄ
     void Update()
     {
-        Debug.Log($"ScenesManager.Instance.currentScore:{ScenesManager.Instance.currentScore}");
+    //    Debug.Log($"ScenesManager.Instance.currentScore:{ScenesManager.Instance.currentScore}");
         if (ScenesManager.Instance.currentScore==1)
         {
             greyCollections[0].gameObject.SetActive(false);
