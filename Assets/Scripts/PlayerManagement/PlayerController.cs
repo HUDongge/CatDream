@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-    public class PlayerController : MonoBehaviour
-    {
+    public class PlayerController : SingletonMono<PlayerController>
+{
         public float moveSpeed = 5f;
         public float jumpHeight = 6f;
         public float movement;
@@ -116,7 +116,7 @@ using UnityEngine.UI;
         int currentSceneIndex = GridSelector.GetIndexByName(gameObject.scene.name);
         Debug.Log($"playerController脚本所在场景名字:{gameObject.scene.name}");
         Debug.Log($"OnTriggerEnter2D当前玩家所在九宫格号:{currentSceneIndex}");
-
+     
         if (other.CompareTag("RightBlock"))   //从右边走的话，看下一个场景的左边是否有通道
         {
             Debug.Log("RightBlock");

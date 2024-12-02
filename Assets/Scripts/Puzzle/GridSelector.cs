@@ -226,7 +226,7 @@ public class GridSelector : MonoBehaviour
         {
             // Ensure the grid item exists before accessing its name
             string itemName = gridItems[i] != null ? gridItems[i].name : "Empty";
-            Debug.Log($"Index: {i}, Item Name: {itemName}");
+          //  Debug.Log($"Index: {i}, Item Name: {itemName}");
         }
     }
 

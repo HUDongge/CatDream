@@ -677,7 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4647905061770390939, guid: 919185e2a95f27244a9fd1d4986240b8, type: 3}
-  respawnDelay: 3
+  respawnDelay: 2
 --- !u!1 &5355415997482884978
 GameObject:
   m_ObjectHideFlags: 0
